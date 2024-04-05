@@ -1,3 +1,8 @@
+/*
+LuckyCard Class
+Defines Lucky Cards, which are special cards obtained by landing a Lucky Card property on the board.
+Can have either a beneficial or harmful effect to the Player.
+ */
 public class LuckyCard {
     private int ID;
     private String name;

@@ -1,3 +1,7 @@
+/*
+Piece Class
+Holds information about a player piece.
+ */
 public class Piece {
     private String color;
     private int pos;

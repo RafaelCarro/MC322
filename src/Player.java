@@ -1,16 +1,26 @@
-import java.util.regex.Pattern;
-
+/*
+Player Class
+Contains all information pertaining to the player and methods for possible actions.
+ */
 public class Player {
     private String name;
+    private final int ID;
     private String CPF;
     private String email;
+    private float money;
     private String photo;
+
+    //Number of Players
+    static int NumberOfPlayers = 0;
 
     //Constructor
     public Player(String name, String CPF, String email, String photo) {
         this.name = name;
+        NumberOfPlayers++;
+        this.ID = NumberOfPlayers;
         this.CPF = CPF;
         this.email = email;
+        this.money = 1000;
         this.photo = photo;
     }
 
@@ -21,6 +31,10 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getID() {
+        return ID;
     }
 
     public String getCPF() {
@@ -39,6 +53,10 @@ public class Player {
         this.email = email;
     }
 
+    public float getMoney() {
+        return money;
+    }
+
     public String getPhoto() {
         return photo;
     }
@@ -47,69 +65,86 @@ public class Player {
         this.photo = photo;
     }
 
+    @Override
+    public String toString() {
+        return "Player " +
+                 name + '\n' +
+                "ID: " + ID + '\n' +
+                "CPF: " + CPF + '\n' +
+                "Email: " + email + '\n' +
+                "Money: " + money + '\n' +
+                "Photo: " + photo + '\n';
+    }
+
+    //Modify Money value
+    public void changeMoney(float value) {
+        this.money += value;
+        System.out.printf("Seu novo saldo é %.2f\n\n", this.money);
+    }
+
+    //ACTIONS
+
     /**
-     * Verifies if player CPF is a valid one.
-     * @return bool*/
-    public boolean CPF_verify() {
-        String Num_CPF = this.CPF.replaceAll("\\D", "");
-        //Checks if CPF is 11 numbers long
-        if (Num_CPF.length() != 11) {
-            return false;
+     * Buy property P on the board.
+     * @param P Property P to be bought.
+     */
+    public void buyProperty(Property P) {
+        if (this.getMoney() >= P.getCost()) {
+            P.setProprietary(this.getID());
+            System.out.printf("%s comprou o %s!\n", this.getName(), P.getName());
+            this.changeMoney(-P.getCost());
         }
-        //Checks if all digits are equal
-        int equals = 1;
-        for (int i = 1; i < 11; i++) {
-            if (Num_CPF.charAt(i) == Num_CPF.charAt(0)) {
-                equals++;
+        else {
+            System.out.printf("%s não possui dinheiro para comprar o %s.\n\n", this.getName(), P.getName());
+        }
+    }
+
+    /**
+     * Buy a given number of Houses in P property
+     * @param P Property in which are to be built houses.
+     * @param NumberOfHouses Number of Houses to build.
+     */
+    public void buyHouses(Land P, int NumberOfHouses) {
+        float cost = NumberOfHouses * P.getCostOfHouses();
+        if (P.getProprietary() != this.getID()) {
+            System.out.printf("%s não é dono do %s!\n\n", this.getName(), P.getName());
+            return;
+        }
+        if (this.getMoney() < cost) {
+            System.out.printf("%s não possui dinheiro para comprar %d casas no %s.\n\n", this.getName(), NumberOfHouses,
+                             P.getName());
+        }
+        else {
+            if (P.add_Houses(NumberOfHouses) == 0) {
+                System.out.printf("%s não pode construir mais casas no %s.\n\n", this.getName(), P.getName());
+            }
+            else {
+                System.out.printf("%s construiu %d casas no %s.\n", this.getName(), NumberOfHouses, P.getName());
+                this.changeMoney(-cost);
             }
         }
-        if (equals == 11) {
-            return false;
-        }
-        //Checks for verification digits validation
-        int ver1 = 0, ver2 = 0;
-        //First verification number:
-        for (int i = 8; i >= 0; i--) {
-            ver1 += (Num_CPF.charAt(i) - '0')*(10-i);
-        }
-        ver1 = ver1 % 11;
-        if (ver1 < 2) {
-            ver1 = 0;
-        }
-        else {
-            ver1 = 11 - ver1;
-        }
-        //Second verification number:
-        for (int i = 8; i >= 0; i--) {
-            ver2 += (Num_CPF.charAt(i) - '0')*(11-i);
-        }
-        ver2 += ver1 * 2;
-        ver2 = ver2 % 11;
-        if (ver2 < 2) {
-            ver2 = 0;
-        }
-        else {
-            ver2 = 11 - ver2;
-        }
-        //verification
-        return ver1 == Num_CPF.charAt(9) - '0' && ver2 == Num_CPF.charAt(10) - '0';
     }
 
-    //Email validation code by https://www.baeldung.com/java-email-validation-regex
     /**
-     * Regex pattern matching*/
-    public static boolean patternMatches(String emailAddress, String regexPattern) {
-        return Pattern.compile(regexPattern)
-                .matcher(emailAddress)
-                .matches();
+     * Buys a hotel in property P
+     * @param P Property in which are to be built a hotel.
+     */
+    public void buyHotel(Land P) {
+        if (P.getProprietary() != this.getID()) {
+            System.out.printf("%s não é dono do %s!\n\n", this.getName(), P.getName());
+            return;
+        }
+        if (this.getMoney() < P.getCostOfHotel()) {
+            System.out.printf("%s não possui dinheiro para comprar um hotel no %s.\n\n", this.getName(), P.getName());
+        }
+        else {
+            if (!P.addHotel()) {
+                System.out.printf("%s não pode construir um hotel no %s.\n\n", this.getName(), P.getName());
+            }
+            else {
+                System.out.printf("%s construiu um hotel no %s.\n", this.getName(), P.getName());
+                this.changeMoney(-P.getCostOfHotel());
+            }
+        }
     }
-    /**
-     * Checks if Player email is a valid one, accepts Unicode characters.
-     * @return boolean
-     * */
-    public boolean verify_email() {
-         return Player.patternMatches(this.email, "^(?=.{1,64}@)[\\p{L}0-9_-]+(\\.[\\p{L}0-9_-]+)*@"
-                + "[^-][\\p{L}0-9-]+(\\.[\\p{L}0-9-]+)*(\\.[\\p{L}]{2,})$");
-    }
-
 }
