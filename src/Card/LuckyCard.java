@@ -1,11 +1,12 @@
+package Card;
+
 /*
-LuckyCard Class
-Defines Lucky Cards, which are special cards obtained by landing a Lucky Card property on the board.
+Property.LuckyCard Class
+Defines Lucky Cards, which are special cards obtained by landing a Lucky Property.Card property on the board.
 Can have either a beneficial or harmful effect to the Player.
  */
-public class LuckyCard {
+public class LuckyCard extends Card{
     private int ID;
-    private String name;
     private int move;
     private int effect;
     private float value;
@@ -15,8 +16,8 @@ public class LuckyCard {
 
     //Constructor
     public LuckyCard(int ID, String name, int move, int effect, float value, String action, int time, String restriction) {
+        super(name);
         this.ID = ID;
-        this.name = name;
         this.move = move;
         this.effect = effect;
         this.value = value;
@@ -33,14 +34,6 @@ public class LuckyCard {
 
     public void setID(int ID) {
         this.ID = ID;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getMove() {
@@ -89,5 +82,10 @@ public class LuckyCard {
 
     public void setRestriction(String restriction) {
         this.restriction = restriction;
+    }
+
+    @Override
+    public String printName() {
+        return getName();
     }
 }

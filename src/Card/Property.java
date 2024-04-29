@@ -1,30 +1,16 @@
+package Card;
+
 /*
-Property Class
+Property.Property Class
 Superclass that defines all the base property elements and methods, every space in the Board is property of some kind.
  */
-public abstract class Property {
-    private String name;
-    private int Proprietary;
+public abstract class Property extends Card{
+
     private float Cost;
     private float Rent;
     private float RentMult;
 
     //Getters and Setters
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getProprietary() {
-        return Proprietary;
-    }
-
-    public void setProprietary(int proprietary) {
-        Proprietary = proprietary;
-    }
 
     public float getCost() {
         return Cost;
@@ -53,10 +39,18 @@ public abstract class Property {
     //Constructor
     //Como elas iniciam sem proprietário, a propriedade não é incluída no construtor
     public Property(String name, float cost, float rent, float rentMult) {
-        this.name = name;
+        super(name);
         Cost = cost;
         Rent = rent;
         RentMult = rentMult;
+    }
+
+    @Override
+    public String toString() {
+        return this.getName() + '\n' +
+                this.getProprietary() + '\n' +
+                "Custo: " + Cost + '\n' +
+                "Aluguel: " + Rent + '\n';
     }
 
     //Rent Calculator

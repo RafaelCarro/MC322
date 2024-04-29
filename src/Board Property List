@@ -1,0 +1,77 @@
+//Properties
+
+//Red Lands
+Land Paviartes = new Land("Paviartes", 60, 10, (float)1.2, "Red", 30, 60);
+Properties.add(Paviartes);
+Land FenF = new Land("Faculdade de Enfermagem", 60, 15, (float) 1.2, "Red", 30, 60);
+Properties.add(FenF);
+Land FE = new Land("Faculdade de Educação",  70, 20, (float) 1.2, "Red", 35, 70);
+Properties.add(FE);
+
+//Orange Lands
+Land IEL = new Land("Instituto de Estudos da Linguagem", 100, 30, (float)1.3, "Orange", 50, 90);
+Properties.add(IEL);
+Land IFCH = new Land("Instituto de Filosofia e Ciências Humanas", 100, 30, (float)1.3, "Orange", 50, 90);
+Properties.add(IFCH);
+Land IA = new Land("Instituto de Artes", 120, 50, (float)1.3, "Orange", 60, 100);
+Properties.add(IA);
+
+//Yellow Lands
+Land IB = new Land("Instituto de Biologia", 160, 70, (float)1.4, "Yellow", 80, 140);
+Properties.add(IB);
+Land IQ = new Land("Instituto de Química", 180, 80, (float)1.4, "Yellow", 90, 160);
+Properties.add(IQ);
+Land IG = new Land("Instituto de Geociências", 180, 80, (float)1.4, "Yellow", 90, 160);
+Properties.add(IG);
+
+//Green Lands
+Land IE = new Land("Instituto de Econômia", 200, 100, (float)1.5, "Green", 110, 180);
+Properties.add(IE);
+Land FEF = new Land("Faculdade de Educação Física", 220, 120, (float)1.5, "Green", 120, 200);
+Properties.add(FEF);
+
+//Cyan Lands
+Land FEAGRI = new Land("Faculdade de Engenharia Agrícola", 260, 150, (float)1.6, "Cyan", 140, 220);
+Properties.add(FEAGRI);
+Land FEA = new Land("Faculdade de Engenharia de Alimentos", 280, 160, (float)1.6, "Cyan", 150, 240);
+Properties.add(FEA);
+
+//Blue Lands
+Land FEQ = new Land("Faculdade de Engenharia Química", 300, 180, (float)1.7, "Blue", 160, 280);
+Properties.add(FEQ);
+Land FEC = new Land("Faculdade de Engenharia Civil", 300, 180, (float)1.7, "Blue", 160, 280);
+Properties.add(FEC);
+Land FEM = new Land("Faculdade de Engenharia Mecânica", 320, 200, (float)1.7, "Blue", 180, 300);
+Properties.add(FEM);
+
+//Purple Lands
+Land FCM = new Land("Faculdade de Ciências Médicas", 340, 220, (float)1.8, "Purple", 200, 330);
+Properties.add(FCM);
+Land FEEC = new Land("Faculdade de Engenharia Elétrica e de Computação", 360, 240, (float)1.8, "Purple", 220, 340);
+Properties.add(FEEC);
+
+//Pink Lands
+Land IFGW = new Land("Instituto de Física Gleb Wataghin", 380, 280, (float) 1.9, "Pink", 240, 360);
+Properties.add(IFGW);
+Land IMECC = new Land("Instituto de Matemática, Estatística e Computação Aplicada", 380, 280, (float) 1.9, "Pink", 240, 360);
+Properties.add(IMECC);
+Land IC = new Land("Instituto de Computação", 400, 300, (float) 1.9, "Pink", 250, 380);
+Properties.add(IC);
+
+//Public Services
+PublicService RU = new PublicService("Restaurante Universitário", 50, 1, (float)10.0);
+Properties.add(RU);
+PublicService COTUCA = new PublicService("COTUCA", 100, 2, (float)10.0);
+Properties.add(COTUCA);
+PublicService RA = new PublicService("Restaurante Administrativo", 150, 3, (float)10.0);
+Properties.add(RA);
+PublicService RS = new PublicService("Restaurante Saturnino", 200, 4, (float)10.0);
+Properties.add(RS);
+
+//Card.Station Properties
+Station C1 = new Station("Circular 1", 150, 20, (float) 4.0);
+Properties.add(C1);
+Station C2 = new Station("Circular 2", 150, 20, (float) 4.0);
+Properties.add(C2);
+Station CE = new Station("Circular Elétrico", 200, 40, (float) 4.0);
+Properties.add(CE);

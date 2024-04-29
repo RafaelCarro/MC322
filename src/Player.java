@@ -1,3 +1,7 @@
+import Card.*;
+
+import java.util.ArrayList;
+
 /*
 Player Class
 Contains all information pertaining to the player and methods for possible actions.
@@ -5,23 +9,29 @@ Contains all information pertaining to the player and methods for possible actio
 public class Player {
     private String name;
     private final int ID;
+    private Piece Piece;
     private String CPF;
     private String email;
     private float money;
     private String photo;
+    private ArrayList<LuckyCard> Cards;
+    private ArrayList<Property> Properties;
 
     //Number of Players
     static int NumberOfPlayers = 0;
 
     //Constructor
-    public Player(String name, String CPF, String email, String photo) {
+    public Player(String name, Piece Piece, String CPF, String email, String photo) {
         this.name = name;
         NumberOfPlayers++;
         this.ID = NumberOfPlayers;
+        this.Piece = Piece;
         this.CPF = CPF;
         this.email = email;
         this.money = 1000;
         this.photo = photo;
+        this.Cards = new ArrayList<LuckyCard>();
+        this.Properties = new ArrayList<Property>();
     }
 
     //Getters and Setters
@@ -35,6 +45,14 @@ public class Player {
 
     public int getID() {
         return ID;
+    }
+
+    public Piece getPiece() {
+        return Piece;
+    }
+
+    public void setPiece(Piece piece) {
+        Piece = piece;
     }
 
     public String getCPF() {
@@ -65,6 +83,22 @@ public class Player {
         this.photo = photo;
     }
 
+    public ArrayList<LuckyCard> getCards() {
+        return Cards;
+    }
+
+    public void setCards(ArrayList<LuckyCard> cards) {
+        Cards = cards;
+    }
+
+    public ArrayList<Property> getProperties() {
+        return Properties;
+    }
+
+    public void setProperties(ArrayList<Property> properties) {
+        Properties = properties;
+    }
+
     @Override
     public String toString() {
         return "Player " +
@@ -86,11 +120,12 @@ public class Player {
 
     /**
      * Buy property P on the board.
-     * @param P Property P to be bought.
+     * @param P Property.Property P to be bought.
      */
     public void buyProperty(Property P) {
         if (this.getMoney() >= P.getCost()) {
             P.setProprietary(this.getID());
+            this.getProperties().add(P);
             System.out.printf("%s comprou o %s!\n", this.getName(), P.getName());
             this.changeMoney(-P.getCost());
         }
@@ -101,7 +136,7 @@ public class Player {
 
     /**
      * Buy a given number of Houses in P property
-     * @param P Property in which are to be built houses.
+     * @param P Property.Property in which are to be built houses.
      * @param NumberOfHouses Number of Houses to build.
      */
     public void buyHouses(Land P, int NumberOfHouses) {
@@ -127,7 +162,7 @@ public class Player {
 
     /**
      * Buys a hotel in property P
-     * @param P Property in which are to be built a hotel.
+     * @param P Property.Property in which are to be built a hotel.
      */
     public void buyHotel(Land P) {
         if (P.getProprietary() != this.getID()) {

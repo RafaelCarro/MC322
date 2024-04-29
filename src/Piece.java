@@ -7,9 +7,9 @@ public class Piece {
     private int pos;
 
     //Constructor
-    public Piece(String color, int pos) {
+    public Piece(String color) {
         this.color = color;
-        this.pos = pos;
+        this.pos = 0;
     }
 
     //Getters and Setters
@@ -27,5 +27,14 @@ public class Piece {
 
     public void setPos(int pos) {
         this.pos = pos;
+    }
+
+    /**
+     * Move the Piece the given number.
+     * @param move How much to move the Piece on the board.
+     */
+    public void changePos(int move) {
+        this.pos += move;
+        this.pos = this.pos % 40;
     }
 }
