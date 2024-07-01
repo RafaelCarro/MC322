@@ -1,6 +1,7 @@
 import Card.*;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /*
 Player Class
@@ -107,7 +108,7 @@ public class Player {
                 "CPF: " + CPF + '\n' +
                 "Email: " + email + '\n' +
                 "Money: " + money + '\n' +
-                "Photo: " + photo + '\n';
+                "Photo: " + photo + "\n\n";
     }
 
     //Modify Money value
@@ -181,5 +182,44 @@ public class Player {
                 this.changeMoney(-P.getCostOfHotel());
             }
         }
+    }
+
+    /**
+     * Add a Card to the LuckyCard Arraylist.
+     * @param C: Card to add
+     */
+    public void AddLuckyCard(LuckyCard C) {
+        this.getCards().add(C);
+    }
+
+    /**
+     * Prints onto the console the cards the player currently has.
+     */
+    public void SeeCards () {
+        int s = this.getCards().size();
+        if (s > 0) {
+            System.out.print("Suas Cartas:\n");
+            for (int i = 0; i < s; i++) {
+                System.out.printf("%d. %s\n", i + 1, this.getCards().get(i).getName());
+            }
+        }
+        else
+            System.out.print("Você não tem cartas\n");
+    }
+
+    /**
+     * Uses the card if possible
+     * @param card: the index number of the card on the ArrayList of LuckyCards.
+     */
+    public void TakeAction(int card) {
+        LuckyCard C = this.getCards().get(card-1);
+        this.getPiece().changePos(C.getMove());
+        this.changeMoney(C.getValue());
+        if (Objects.equals(C.getAction(), "JAIL"))
+            this.getPiece().setPos(10);
+        else if (Objects.equals(C.getAction(), "FREE") && this.getPiece().getPos() == 10) {
+            this.getPiece().setPos(20);
+        }
+        this.getCards().remove(card-1);
     }
 }

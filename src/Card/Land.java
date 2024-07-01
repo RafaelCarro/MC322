@@ -136,8 +136,10 @@ public class Land extends Property{
         return GroupColor + this.getName() + '\n' +
                 this.getGroup() + " (" + (this.getProprietary() == -1 ? "Sem Dono" : "Dono:" + this.getProprietary()) + ")\n" +
                 "Preço: " + this.getCost() + "$\n" +
-                "Aluguel: " + this.getRent() + "$\n"
-                + ANSI_RESET;
+                "Aluguel: " + this.getRent() + "$\n" +
+                "Casas: " + this.getNumberOfHouses() + "$\n" +
+                "Hotel: " + ((this.isHotel()) ? "Yes" : "No") + "$\n" +
+                ANSI_RESET;
     }
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
